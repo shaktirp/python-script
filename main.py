@@ -1,5 +1,6 @@
 from twilio.rest import Client
 from time import gmtime, strftime
+from os import environ
 try:
     import env as _env
     env = "dev"
@@ -15,10 +16,10 @@ if env == "dev":
     }
 else:
     _SETTINGS = {
-        "SID": process.env.SID,
-        "token": process.env.token,
-        "to_number": process.env.to_number,
-        "from_number": process.env.from_number
+        "SID": environ.get('SID'),
+        "token": environ.get('token'),
+        "to_number": environ.get('to_number'),
+        "from_number": environ.get('from_number')
     }
 
 client = Client(_SETTINGS["SID"], _SETTINGS["token"])
