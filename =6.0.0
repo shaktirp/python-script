@@ -1,0 +1,21 @@
+Collecting twilio
+  Using cached twilio-6.10.1-py2.py3-none-any.whl
+Requirement already satisfied (use --upgrade to upgrade): six in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from twilio)
+Requirement already satisfied (use --upgrade to upgrade): requests[security]>=2.0.0 in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from twilio)
+Requirement already satisfied (use --upgrade to upgrade): pytz in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from twilio)
+Collecting PyJWT>=1.4.2 (from twilio)
+  Using cached PyJWT-1.5.3-py2.py3-none-any.whl
+Requirement already satisfied (use --upgrade to upgrade): pyOpenSSL>=0.13 in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from requests[security]>=2.0.0->twilio)
+Collecting ndg-httpsclient (from requests[security]>=2.0.0->twilio)
+  Downloading ndg_httpsclient-0.4.3-py2-none-any.whl
+Collecting pyasn1 (from requests[security]>=2.0.0->twilio)
+  Downloading pyasn1-0.4.2-py2.py3-none-any.whl (71kB)
+Requirement already satisfied (use --upgrade to upgrade): cryptography>=1.9 in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from pyOpenSSL>=0.13->requests[security]>=2.0.0->twilio)
+Requirement already satisfied (use --upgrade to upgrade): idna>=2.1 in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from cryptography>=1.9->pyOpenSSL>=0.13->requests[security]>=2.0.0->twilio)
+Requirement already satisfied (use --upgrade to upgrade): asn1crypto>=0.21.0 in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from cryptography>=1.9->pyOpenSSL>=0.13->requests[security]>=2.0.0->twilio)
+Requirement already satisfied (use --upgrade to upgrade): enum34 in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from cryptography>=1.9->pyOpenSSL>=0.13->requests[security]>=2.0.0->twilio)
+Requirement already satisfied (use --upgrade to upgrade): ipaddress in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from cryptography>=1.9->pyOpenSSL>=0.13->requests[security]>=2.0.0->twilio)
+Requirement already satisfied (use --upgrade to upgrade): cffi>=1.7 in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from cryptography>=1.9->pyOpenSSL>=0.13->requests[security]>=2.0.0->twilio)
+Requirement already satisfied (use --upgrade to upgrade): pycparser in /Users/srajpurohit/anaconda2/lib/python2.7/site-packages (from cffi>=1.7->cryptography>=1.9->pyOpenSSL>=0.13->requests[security]>=2.0.0->twilio)
+Installing collected packages: PyJWT, twilio, pyasn1, ndg-httpsclient
+Successfully installed PyJWT-1.5.3 ndg-httpsclient-0.4.3 pyasn1-0.4.2 twilio-6.10.1

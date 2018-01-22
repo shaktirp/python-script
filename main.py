@@ -1,15 +1,25 @@
-from datetime import datetime
-import sendgrid
-import os
-from sendgrid.helpers.mail import *
+from twilio.rest import Client
+from time import gmtime, strftime
+try:
+    import env as _env
+    env = "dev"
+except Exception as e:
+    env = "prod"
 
-sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-from_email = Email("shaktirp1@gmail.com")
-subject = "Hello World from the SendGrid Python Library!"
-to_email = Email("shaktirp1@gmail.com")
-content = Content("text/plain", "Time is: " + str(datetime.now()))
-mail = Mail(from_email, subject, to_email, content)
-response = sg.client.mail.send.post(request_body=mail.get())
-print(response.status_code)
-print(response.body)
-print(response.headers)
+if env == "dev":
+    _SETTINGS = {
+        "SID": _env.SID,
+        "token": _env.token,
+        "to_number": _env.to_number,
+        "from_number": _env.from_number
+    }
+
+client = Client(_SETTINGS["SID"], _SETTINGS["token"])
+
+body = strftime("%Y-%m-%d %H:%M:%S", gmtime()) + " - Hello from Python! "
+
+print(body)
+
+# client.messages.create(to=_SETTINGS["to_number"],
+#                        from_=_SETTINGS["from_number"],
+#                        body=body)
