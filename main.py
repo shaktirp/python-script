@@ -25,7 +25,7 @@ client = Client(_SETTINGS["SID"], _SETTINGS["token"])
 
 body = strftime("%Y-%m-%d %H:%M:%S", gmtime()) + " - Hello from Python! "
 
-print(body)
+print(body, _SETTINGS)
 
 client.messages.create(to=_SETTINGS["to_number"],
                        from_=_SETTINGS["from_number"],
