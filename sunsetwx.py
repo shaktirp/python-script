@@ -9,6 +9,13 @@ _URLS = {
     "quality": "https://sunburst.sunsetwx.com/v1/quality"
 }
 
+_ERRORMSGS = {
+    "tokenInvalid": "Token not valid",
+    "tokenCallError": "Could not get new token",
+    "coordinatesError": "Error in getting coordinates",
+    "qualityError": "Error in getting quality"
+}
+
 def getJson():
     with open("data.json") as json_file:
         data = json.load(json_file)
@@ -30,18 +37,16 @@ def getNewToken():
 
     if resp.status_code in (200, 201):
         postJson(resp.json()["token"])
-        getCoordinates()
-        return resp.json()["token"]
+    else:
+        print(_ERRORMSGS["tokenCallError"])
 
-    return
-
-def getCoordinates():
+def getCoordinates(city, token):
     headers = {
-        "Authorization": "Bearer " + _DATA["token"]
+        "Authorization": "Bearer " + token
     }
 
     params = {
-        "location": _DATA["city"]
+        "location": city
     }
 
     resp = requests.get(_URLS["coordinates"], headers=headers, params=params)
@@ -50,16 +55,16 @@ def getCoordinates():
         x_coordinate = resp.json()["features"][0]["geometry"]["coordinates"][0]
         y_coordinate = resp.json()["features"][0]["geometry"]["coordinates"][1]
         coords = str(x_coordinate) + "," + str(y_coordinate)
-        getQuality(coords, "sunrise")
-        getQuality(coords, "sunset")
+        return coords
     elif resp.status_code == 401:
-        getNewToken()
+        return _ERRORMSGS["tokenInvalid"]
     else:
-        print("Error in getting coordinates")
+        print(_ERRORMSGS["coordinatesError"])
+        return
 
-def getQuality(coords, timeOfDay):
+def getQuality(coords, timeOfDay, token):
     headers = {
-        "Authorization": "Bearer " + _DATA["token"]
+        "Authorization": "Bearer " + token
     }
 
     params = {
@@ -71,11 +76,21 @@ def getQuality(coords, timeOfDay):
 
     if resp.status_code in (200,201):
         props = resp.json()["features"][0]["properties"]
-        print(props["type"], props["valid_at"], props["quality"], props["temperature"])
+        return props
     else:
-        print("Error in getting quality")
+        print(_ERRORMSGS["qualityError"])
+        return {}
 
 def main():
-    
+    _DATA = getJson()
+    coords = getCoordinates(_DATA["city"], _DATA["token"])
+    if coords == _ERRORMSGS["tokenInvalid"]:
+        print("Getting new token")
+        getNewToken()
+        _DATA = getJson()
+        coords = getCoordinates(_DATA["city"], _DATA["token"])
 
-_DATA = getJson()
+    return {
+        "sunset": getQuality(coords, "sunset", _DATA["token"]),
+        "sunrise": getQuality(coords, "sunrise", _DATA["token"])
+    }
