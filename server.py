@@ -13,11 +13,10 @@ qualityObj = main()
 sunsetMsg = getMsg("sunset", qualityObj["sunset"]["valid_at"], qualityObj["sunset"]["quality"], qualityObj["sunset"]["temperature"])
 sunriseMsg = getMsg("sunrise", qualityObj["sunrise"]["valid_at"], qualityObj["sunrise"]["quality"], qualityObj["sunrise"]["temperature"])
 
-print(sunsetMsg, sunriseMsg)
-# client.messages.create(to=_SETTINGS["to_number"],
-#                        from_=_SETTINGS["from_number"],
-#                        body=sunsetMsg)
-#
-# client.messages.create(to=_SETTINGS["to_number"],
-#                        from_=_SETTINGS["from_number"],
-#                        body=sunriseMsg)
+client.messages.create(to=_SETTINGS["to_number"],
+                       from_=_SETTINGS["from_number"],
+                       body=sunsetMsg)
+
+client.messages.create(to=_SETTINGS["to_number"],
+                       from_=_SETTINGS["from_number"],
+                       body=sunriseMsg)
